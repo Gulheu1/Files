@@ -52,11 +52,12 @@ namespace Files.App.Actions
 			if (context.SelectedItems.Count is 0)
 				return;
 
+			BaseStorageFolder currentFolder = await StorageHelpers.ToStorageItem<BaseStorageFolder>(context.ShellPage?.ShellViewModel.CurrentFolder?.ItemPath ?? string.Empty);
+
 			foreach (var selectedItem in context.SelectedItems)
 			{
 				var password = string.Empty;
 				BaseStorageFile archive = await StorageHelpers.ToStorageItem<BaseStorageFile>(selectedItem.ItemPath);
-				BaseStorageFolder currentFolder = await StorageHelpers.ToStorageItem<BaseStorageFolder>(context.ShellPage?.ShellViewModel.CurrentFolder?.ItemPath ?? string.Empty);
 
 				if (archive?.Path is null)
 					return;
